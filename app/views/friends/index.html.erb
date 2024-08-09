@@ -80,6 +80,10 @@
         </th>
 
         <th>
+          Dietary Restrictions
+        </th>
+
+        <th>
           Created at
         </th>
 
@@ -111,6 +115,12 @@
 
         <td>
           <%= a_friend.user_id %>
+        </td>
+
+        <td>
+          <% a_friend.restrictions.each do |restriction|%>
+          <%= restriction.diet.name %> <br>
+          <%end%>
         </td>
 
         <td>
