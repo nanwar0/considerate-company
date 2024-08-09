@@ -1,0 +1,102 @@
+<div>
+  <div>
+    <h1>
+      List of all restrictions
+    </h1>
+  </div>
+</div>
+
+<hr>
+
+<div>
+  <div>
+    <h2>
+      Add a new restriction
+    </h2>
+
+    <form action="/insert_restriction" method="post">
+      <div>
+        <label for="friend_id_box">
+          Friend
+        </label>
+
+        <input type="text" id="friend_id_box" name="query_friend_id">
+      </div>
+
+      <div>
+        <label for="diet_id_box">
+          Diet
+        </label>
+
+        <input type="text" id="diet_id_box" name="query_diet_id">
+      </div>
+
+      <button>
+        Create restriction
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
+<div>
+  <div>
+    <table border="1">
+      <tr>
+        <th>
+          ID
+        </th>
+
+        <th>
+          Friend
+        </th>
+
+        <th>
+          Diet
+        </th>
+
+        <th>
+          Created at
+        </th>
+
+        <th>
+          Updated at
+        </th>
+
+        <th>
+        </th>
+      </tr>
+
+      <% @list_of_restrictions.each do |a_restriction| %>
+      <tr>
+        <td>
+          <%= a_restriction.id %>
+        </td>
+
+        <td>
+          <%= a_restriction.friend_id %>
+        </td>
+
+        <td>
+          <%= a_restriction.diet_id %>
+        </td>
+
+        <td>
+          <%= time_ago_in_words(a_restriction.created_at) %> ago
+        </td>
+        <td>
+          <%= time_ago_in_words(a_restriction.updated_at) %> ago
+        </td>
+
+        <td>
+          <a href="/restrictions/<%= a_restriction.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+
+<hr>

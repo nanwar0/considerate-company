@@ -1,4 +1,42 @@
 Rails.application.routes.draw do
+  # Routes for the Restriction resource:
+
+  # CREATE
+  post("/insert_restriction", { :controller => "restrictions", :action => "create" })
+          
+  # READ
+  get("/restrictions", { :controller => "restrictions", :action => "index" })
+  
+  get("/restrictions/:path_id", { :controller => "restrictions", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_restriction/:path_id", { :controller => "restrictions", :action => "update" })
+  
+  # DELETE
+  get("/delete_restriction/:path_id", { :controller => "restrictions", :action => "destroy" })
+
+  #------------------------------
+
+  # Routes for the Diet resource:
+
+  # CREATE
+  post("/insert_diet", { :controller => "diets", :action => "create" })
+          
+  # READ
+  get("/diets", { :controller => "diets", :action => "index" })
+  
+  get("/diets/:path_id", { :controller => "diets", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_diet/:path_id", { :controller => "diets", :action => "update" })
+  
+  # DELETE
+  get("/delete_diet/:path_id", { :controller => "diets", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Friend resource:
 
   # CREATE

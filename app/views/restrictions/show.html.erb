@@ -1,0 +1,86 @@
+<div>
+  <div>
+    <h1>
+      Restriction #<%= @the_restriction.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/restrictions">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_restriction/<%= @the_restriction.id %>">
+          Delete restriction
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Friend
+      </dt>
+      <dd>
+        <%= @the_restriction.friend_id %>
+      </dd>
+
+      <dt>
+        Diet
+      </dt>
+      <dd>
+        <%= @the_restriction.diet_id %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_restriction.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_restriction.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit restriction
+    </h2>
+
+    <form action="/modify_restriction/<%= @the_restriction.id %>"  method="post" >
+      <div>
+        <label for="friend_id_box">
+          Friend
+        </label>
+
+        <input type="text" id="friend_id_box" name="query_friend_id" value="<%= @the_restriction.friend_id %>">
+      </div>
+
+      <div>
+        <label for="diet_id_box">
+          Diet
+        </label>
+
+        <input type="text" id="diet_id_box" name="query_diet_id" value="<%= @the_restriction.diet_id %>">
+      </div>
+
+      <button>
+        Update restriction
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
