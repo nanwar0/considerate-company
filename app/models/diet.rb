@@ -8,4 +8,5 @@
 #  updated_at :datetime         not null
 #
 class Diet < ApplicationRecord
+  has_many  :restrictions, class_name: "Restriction", foreign_key: "diet_id", dependent: :destroy
 end

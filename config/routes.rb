@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   post("/insert_friend", { :controller => "friends", :action => "create" })
           
   # READ
+  get("/", { :controller => "friends", :action => "index" })
   get("/friends", { :controller => "friends", :action => "index" })
   
   get("/friends/:path_id", { :controller => "friends", :action => "show" })

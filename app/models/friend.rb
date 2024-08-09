@@ -11,4 +11,6 @@
 #  user_id    :integer
 #
 class Friend < ApplicationRecord
+  belongs_to :user, required: true, class_name: "User", foreign_key: "user_id"
+  has_many  :restrictions, class_name: "Restriction", foreign_key: "friend_id", dependent: :destroy
 end
