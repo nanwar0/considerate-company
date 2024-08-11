@@ -11,6 +11,15 @@
   </head>
 
   <body>
+      <%if current_user == nil%>
+      <a href="/users/sign_up">Sign up</a>
+      <a href="/users/sign_in">Sign in</a>
+      <%else%>
+      Hello, <%=current_user.email%>.   
+      <a href="/users/sign_out">Sign out</a>
+      <a href="/users/edit">Edit profile</a>
+      <%end%>
+
     <%= yield %>
   </body>
 </html>

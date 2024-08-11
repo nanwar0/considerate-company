@@ -41,10 +41,10 @@
       </dd>
 
       <dt>
-        User
+        Notes
       </dt>
       <dd>
-        <%= @the_friend.user_id %>
+        <%= @the_friend.notes %>
       </dd>
 
       <dt>
@@ -99,11 +99,11 @@
       </div>
 
       <div>
-        <label for="user_id_box">
-          User
+        <label for="notes_box">
+          Notes
         </label>
 
-        <input type="text" id="user_id_box" name="query_user_id" value="<%= @the_friend.user_id %>">
+        <textarea id="notes_box" name="query_notes"><%= @the_friend.notes %></textarea>
       </div>
 
       <button>

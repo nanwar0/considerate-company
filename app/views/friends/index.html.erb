@@ -40,11 +40,23 @@
       </div>
 
       <div>
-        <label for="user_id_box">
-          User
+        <label for="notes_box">
+          Notes
         </label>
 
-        <input type="text" id="user_id_box" name="query_user_id">
+        <textarea id="notes_box" name="query_notes" rows="3"></textarea>
+      </div>
+
+      <div>
+        <label for="restrictions_box">
+          Dietary Restrictions
+        </label>
+
+        <select id="restrictions_box" name="query_restrictions" size="4" multiple>
+          <%Diet.all.order(:sort_column).each do |diet|%>
+          <option value="<%diet.id%>"><%=diet.name%></option>
+          <%end%>
+        </select>
       </div>
 
       <button>
@@ -81,6 +93,10 @@
 
         <th>
           Dietary Restrictions
+        </th>
+
+        <th>
+          Notes
         </th>
 
         <th>
@@ -121,6 +137,10 @@
           <% a_friend.restrictions.each do |restriction|%>
           <%= restriction.diet.name %> <br>
           <%end%>
+        </td>
+
+        <td>
+          <%= a_friend.notes %>
         </td>
 
         <td>

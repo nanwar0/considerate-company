@@ -22,7 +22,8 @@ class FriendsController < ApplicationController
     the_friend.name = params.fetch("query_name")
     the_friend.address = params.fetch("query_address")
     the_friend.birthday = params.fetch("query_birthday")
-    the_friend.user_id = params.fetch("query_user_id")
+    the_friend.user_id = current_user.id
+    the_friend.notes = params.fetch("query_notes")
 
     if the_friend.valid?
       the_friend.save
@@ -30,6 +31,8 @@ class FriendsController < ApplicationController
     else
       redirect_to("/friends", { :alert => the_friend.errors.full_messages.to_sentence })
     end
+
+
   end
 
   def update
@@ -39,7 +42,8 @@ class FriendsController < ApplicationController
     the_friend.name = params.fetch("query_name")
     the_friend.address = params.fetch("query_address")
     the_friend.birthday = params.fetch("query_birthday")
-    the_friend.user_id = params.fetch("query_user_id")
+    the_friend.user_id = current_user.id
+    the_friend.notes = params.fetch("query_notes")
 
     if the_friend.valid?
       the_friend.save
