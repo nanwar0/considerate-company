@@ -6,14 +6,14 @@
     </h1>
 
     <form action="/insert_group" method="post">
-
-      <select id="friends_box" name="query_friend_id[]" size="4" multiple>
-        <%@matching_friends.order(:name).each do |friend|%>
-        <option value="<%=friend.id%>"><%=friend.name%></option>
-        <%end%>
-      </select>
-      <br><em>Hold down the Ctrl (windows) / Command (Mac) button to select multiple people.</em>
-
+      <div>
+        <select id="friends_box" name="query_friend_id[]" size="6" multiple>
+          <%@matching_friends.order(:name).each do |friend|%>
+          <option value="<%=friend.id%>"><%=friend.name%></option>
+          <%end%>
+        </select>
+        <br><em>Hold down the Ctrl (windows) / Command (Mac) button to select multiple people.</em>
+      </div>
       <button>
         Create group
       </button>
@@ -27,55 +27,60 @@
     <table border="1">
       <tr>
         <th>
-          ID
-        </th>
-
-        <th>
           Friend
         </th>
 
+       <th>
+          Address
+        </th>
+
         <th>
-          User
+          Birthday
+        </th>
+
+        <th>
+          Dietary Restrictions
+        </th>
+
+        <th>
+          Notes
         </th>
 
         <th>
           Created at
         </th>
 
-        <th>
-          Updated at
-        </th>
 
-        <th>
-        </th>
       </tr>
 
       <% @list_of_groups.each do |a_group| %>
       <tr>
         <td>
-          <%= a_group.id %>
-        </td>
-
-        <td>
           <%= a_group.friend.name %>
         </td>
 
         <td>
-          <%= a_group.user.id %>
+          <%= a_group.friend.address %>
+        </td>
+
+        <td>
+          <%= a_group.friend.birthday %>
+        </td>
+
+        <td>
+          <% a_group.friend.restrictions.each do |restriction|%>
+          <%= restriction.diet.name %> <br>
+          <%end%>
+        </td>
+
+        <td>
+          <%= a_group.friend.notes %>
         </td>
 
         <td>
           <%= time_ago_in_words(a_group.created_at) %> ago
         </td>
-        <td>
-          <%= time_ago_in_words(a_group.updated_at) %> ago
-        </td>
 
-        <td>
-          <a href="/groups/<%= a_group.id %>">
-            Show details
-          </a>
-        </td>
       </tr>
       <% end %>
     </table>
@@ -83,3 +88,12 @@
 </div>
 
 <hr>
+
+<h2>Combined dietary restrictions for the group: </h2>
+<ul>
+
+<%@list_of_diets.each do |diet_id|%>
+<%diet = Diet.where({ :id => diet_id }).first%>
+<li><%=diet.name%></li>
+<%end%>
+</ul>

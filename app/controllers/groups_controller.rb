@@ -2,9 +2,19 @@ class GroupsController < ApplicationController
   def index
     @matching_friends = Friend.where({ :user_id => current_user.id })
 
-    matching_groups = Group.all
+    matching_groups = Group.where({ :user_id => current_user.id })
 
     @list_of_groups = matching_groups.order({ :created_at => :desc })
+
+    @list_of_diets = Array.new
+
+    matching_groups.each do |group|
+      group.friend.restrictions.each do |restriction|
+        if !@list_of_diets.include?(restriction.diet_id) && restriction.diet_id!=12
+          @list_of_diets.push(restriction.diet_id)
+        end
+      end
+    end
 
     render({ :template => "groups/index" })
   end
