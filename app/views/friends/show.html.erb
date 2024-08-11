@@ -41,6 +41,17 @@
       </dd>
 
       <dt>
+        Dietary Restrictions
+      </dt>
+      <dd>
+      <ul>
+        <% @the_friend.restrictions.each do |restriction| %>
+        <li><%=restriction.diet.name%></li>
+        <%end%>
+      </ul>
+      </dd>
+
+      <dt>
         Notes
       </dt>
       <dd>
@@ -96,6 +107,23 @@
         </label>
 
         <input type="date" id="birthday_box" name="query_birthday" value="<%= @the_friend.birthday %>">
+      </div>
+
+      <div>
+        <label for="restrictions_box">
+          Dietary Restrictions
+        </label>
+
+        <select id="restrictions_box" name="query_restrictions[]" size="4" multiple>
+          <%Diet.all.order(:sort_column).each do |diet|%>
+            <%if @restriction_diet_ids.include?(diet.id) %>
+              <option value="<%=diet.id%>" selected="selected"><%=diet.name%></option>
+            <%else%>
+              <option value="<%=diet.id%>"><%=diet.name%></option>
+            <%end%>
+          <%end%>
+        </select>
+        <br><em>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</em>
       </div>
 
       <div>

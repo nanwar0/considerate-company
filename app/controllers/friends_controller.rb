@@ -13,6 +13,11 @@ class FriendsController < ApplicationController
     matching_friends = Friend.where({ :id => the_id })
 
     @the_friend = matching_friends.at(0)
+    
+    @restriction_diet_ids = Array.new
+    @the_friend.restrictions.each do |restriction|
+      @restriction_diet_ids.push(restriction.diet_id)
+    end
 
     render({ :template => "friends/show" })
   end
@@ -32,6 +37,17 @@ class FriendsController < ApplicationController
       redirect_to("/friends", { :alert => the_friend.errors.full_messages.to_sentence })
     end
 
+    input_restrictions = params.fetch("query_restrictions")
+
+    input_restrictions.each do |restriction|
+      the_restriction = Restriction.new
+      the_restriction.friend_id = the_friend.id
+      the_restriction.diet_id = restriction
+
+      if the_restriction.valid?
+        the_restriction.save
+      end
+  end
 
   end
 
