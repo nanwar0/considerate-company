@@ -1,5 +1,7 @@
 class GroupsController < ApplicationController
   def index
+    @matching_friends = Friend.where({ :user_id => current_user.id })
+
     matching_groups = Group.all
 
     @list_of_groups = matching_groups.order({ :created_at => :desc })
@@ -18,16 +20,26 @@ class GroupsController < ApplicationController
   end
 
   def create
-    the_group = Group.new
-    the_group.friend_id = params.fetch("query_friend_id")
-    the_group.user_id = params.fetch("query_user_id")
+    existing_group = Group.where({ :user_id => current_user.id })
 
-    if the_group.valid?
-      the_group.save
-      redirect_to("/groups", { :notice => "Group created successfully." })
-    else
-      redirect_to("/groups", { :alert => the_group.errors.full_messages.to_sentence })
+    existing_group.each do |group|
+      group.destroy
     end
+    
+    list_of_friends = params.fetch("query_friend_id")
+
+    list_of_friends.each do |friend|
+      the_group = Group.new
+      the_group.friend_id = friend
+      the_group.user_id = current_user.id
+
+      if the_group.valid?
+        the_group.save
+      else
+        redirect_to("/groups", { :alert => the_group.errors.full_messages.to_sentence })
+      end
+    end
+    redirect_to("/groups")
   end
 
   def update

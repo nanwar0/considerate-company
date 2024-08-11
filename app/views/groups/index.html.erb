@@ -1,35 +1,18 @@
+
 <div>
   <div>
     <h1>
-      List of all groups
+      Create a group outing
     </h1>
-  </div>
-</div>
-
-<hr>
-
-<div>
-  <div>
-    <h2>
-      Add a new group
-    </h2>
 
     <form action="/insert_group" method="post">
-      <div>
-        <label for="friend_id_box">
-          Friend
-        </label>
 
-        <input type="text" id="friend_id_box" name="query_friend_id">
-      </div>
-
-      <div>
-        <label for="user_id_box">
-          User
-        </label>
-
-        <input type="text" id="user_id_box" name="query_user_id">
-      </div>
+      <select id="friends_box" name="query_friend_id[]" size="4" multiple>
+        <%@matching_friends.order(:name).each do |friend|%>
+        <option value="<%=friend.id%>"><%=friend.name%></option>
+        <%end%>
+      </select>
+      <br><em>Hold down the Ctrl (windows) / Command (Mac) button to select multiple people.</em>
 
       <button>
         Create group
@@ -74,11 +57,11 @@
         </td>
 
         <td>
-          <%= a_group.friend_id %>
+          <%= a_group.friend.name %>
         </td>
 
         <td>
-          <%= a_group.user_id %>
+          <%= a_group.user.id %>
         </td>
 
         <td>

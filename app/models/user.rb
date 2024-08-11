@@ -21,4 +21,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many  :friends, class_name: "Friend", foreign_key: "user_id", dependent: :destroy
+  has_many  :groups, dependent: :destroy
 end
