@@ -1,10 +1,16 @@
 class FriendsController < ApplicationController
   def index
-    matching_friends = Friend.all
+    if current_user==nil
+      redirect_to("/users/sign_in")
+    else
+      matching_friends = Friend.where({ :user_id => current_user.id })
 
-    @list_of_friends = matching_friends.order({ :created_at => :desc })
+      @list_of_friends = matching_friends.order({ :created_at => :desc })
+  
+      render({ :template => "friends/index" })
+    end
+    
 
-    render({ :template => "friends/index" })
   end
 
   def show
@@ -15,8 +21,8 @@ class FriendsController < ApplicationController
     @the_friend = matching_friends.at(0)
     
     @restriction_diet_ids = Array.new
-    @the_friend.restrictions.each do |restriction|
-      @restriction_diet_ids.push(restriction.diet_id)
+    @the_friend.diets.each do |diet|
+      @restriction_diet_ids.push(diet.id)
     end
 
     render({ :template => "friends/show" })
@@ -67,6 +73,24 @@ class FriendsController < ApplicationController
     else
       redirect_to("/friends/#{the_friend.id}", { :alert => the_friend.errors.full_messages.to_sentence })
     end
+
+    the_friend.restrictions.each do |restriction|
+      the_restriction = Restriction.where({ :id => restriction.id }).at(0)
+      the_restriction.destroy
+    end
+
+    input_restrictions = params.fetch("query_restrictions")
+
+    input_restrictions.each do |restriction|
+      the_restriction = Restriction.new
+      the_restriction.friend_id = the_friend.id
+      the_restriction.diet_id = restriction
+
+      if the_restriction.valid?
+        the_restriction.save
+      end
+    end
+
   end
 
   def destroy

@@ -1,7 +1,7 @@
 <div>
   <div>
     <h1>
-      Friend #<%= @the_friend.id %> details
+      <%= @the_friend.name %>'s details
     </h1>
 
     <div>
@@ -11,12 +11,6 @@
         </a>
       </div>
 
-      <div>
-        <a href="/delete_friend/<%= @the_friend.id %>">
-          Delete friend
-        </a>
-      </div>
-    </div>
 
     <dl>
       <dt>
@@ -72,6 +66,13 @@
         <%= time_ago_in_words(@the_friend.updated_at) %> ago
       </dd>
     </dl>
+
+    <div>
+        <a href="/delete_friend/<%= @the_friend.id %>">
+          Delete friend
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 
