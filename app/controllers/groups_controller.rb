@@ -26,34 +26,20 @@ class GroupsController < ApplicationController
 
   def recommend
 
-      request_headers_hash = {
-      "Authorization" => "Bearer #{ENV.fetch("OPENAI_API_KEY")}",
-      "content-type" => "application/json"
-    }
+    client = OpenAI::Client.new(:api_key => ENV.fetch("OPENAI_API_KEY"))
 
-    # Prepare a hash that will become the body of the request
-    request_body_hash = {
-      "model" => "gpt-3.5-turbo",
-      "messages" => [
-        {
-          "role" => "user",
-          "content" => "Recommend four restaurants in Chicago."
-        }
+    raw_response = client.completions.create(
+    parameters: {
+      model: "gpt-3.5-turbo", 
+      messages: [
+        {:role => "system", :content => "You are a helpful assistant."},
+        {:role => "user", :content => "Recommend four restaurants in Chicago."},
       ]
     }
+    )
 
-    # Convert the Hash into a String containing JSON
-    request_body_json = JSON.generate(request_body_hash)
-
-    # Make the API call
-    raw_response = HTTP.headers(request_headers_hash).post(
-      "https://api.openai.com/v1/chat/completions",
-      :body => request_body_json
-    ).to_s
-
-    @next_message = raw_response.fetch("choices").at(0).fetch("message")
-
-    pp @next_message
+    next_message = raw_response.fetch("choices").at(0).fetch("message").fetch("content")
+    pp next_message
   end
 
   def show
