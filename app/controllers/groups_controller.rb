@@ -1,22 +1,59 @@
 class GroupsController < ApplicationController
   def index
-    @matching_friends = Friend.where({ :user_id => current_user.id })
+    if current_user==nil
+      redirect_to("/users/sign_in")
+    else
+      @matching_friends = Friend.where({ :user_id => current_user.id })
 
-    matching_groups = Group.where({ :user_id => current_user.id })
+      matching_groups = Group.where({ :user_id => current_user.id })
 
-    @list_of_groups = matching_groups.order({ :created_at => :desc })
+      @list_of_groups = matching_groups.order({ :created_at => :desc })
 
-    @list_of_diets = Array.new
+      @list_of_diets = Array.new
 
-    matching_groups.each do |group|
-      group.friend.restrictions.each do |restriction|
-        if !@list_of_diets.include?(restriction.diet_id) && restriction.diet_id!=12
-          @list_of_diets.push(restriction.diet_id)
+      matching_groups.each do |group|
+        group.friend.restrictions.each do |restriction|
+          if !@list_of_diets.include?(restriction.diet_id) && restriction.diet_id!=12
+            @list_of_diets.push(restriction.diet_id)
+          end
         end
       end
+      render({ :template => "groups/index" })
     end
+    
 
-    render({ :template => "groups/index" })
+  end
+
+  def recommend
+
+      request_headers_hash = {
+      "Authorization" => "Bearer #{ENV.fetch("OPENAI_API_KEY")}",
+      "content-type" => "application/json"
+    }
+
+    # Prepare a hash that will become the body of the request
+    request_body_hash = {
+      "model" => "gpt-3.5-turbo",
+      "messages" => [
+        {
+          "role" => "user",
+          "content" => "Recommend four restaurants in Chicago."
+        }
+      ]
+    }
+
+    # Convert the Hash into a String containing JSON
+    request_body_json = JSON.generate(request_body_hash)
+
+    # Make the API call
+    raw_response = HTTP.headers(request_headers_hash).post(
+      "https://api.openai.com/v1/chat/completions",
+      :body => request_body_json
+    ).to_s
+
+    @next_message = raw_response.fetch("choices").at(0).fetch("message")
+
+    pp @next_message
   end
 
   def show

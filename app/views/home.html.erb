@@ -1,0 +1,16 @@
+<h2>Welcome back!</h2>
+
+<h3>What would you like to do?</h3>
+
+<ul>
+<li><a href="/groups">Plan a group meal</a></li>
+<li><a href="/friends">Add a friend or see your friends list</a></li>
+</ul>
+<hr>
+
+<h3>This month's birthdays:</h3>
+<ul>
+<%@this_months_birthdays.each do |friend|%>
+<li><%=friend.name%>: <%=friend.birthday.strftime("%A, %B %d")%></li>
+<%end%>
+</ul>

@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
+  get("/", { :controller => "home", :action => "index" })
+  post("/get_recommendations", { :controller => "groups", :action => "recommend" })
+  
   # Routes for the Group resource:
 
   # CREATE
   post("/insert_group", { :controller => "groups", :action => "create" })
           
   # READ
+
   get("/groups", { :controller => "groups", :action => "index" })
   
   get("/groups/:path_id", { :controller => "groups", :action => "show" })
@@ -62,7 +66,6 @@ Rails.application.routes.draw do
   post("/insert_friend", { :controller => "friends", :action => "create" })
           
   # READ
-  get("/", { :controller => "friends", :action => "index" })
   get("/friends", { :controller => "friends", :action => "index" })
   
   get("/friends/:path_id", { :controller => "friends", :action => "show" })
