@@ -5,6 +5,10 @@
 <ul>
 <li><a href="/groups">Plan a group meal</a></li>
 <li><a href="/friends">Add a friend or see your friends list</a></li>
+<%if current_user.admin%>
+<br> Admin-only access:
+  <li><a href="/diets">See and add pending dietary restrictions</a></li>
+<%end%>
 </ul>
 <hr>
 
