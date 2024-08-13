@@ -9,6 +9,7 @@
 #  friend_id  :integer
 #
 class Restriction < ApplicationRecord
-  belongs_to :friend, required: true, class_name: "Friend", foreign_key: "friend_id"
+  belongs_to :friend, class_name: "Friend", foreign_key: "friend_id"
   belongs_to :diet, required: true, class_name: "Diet", foreign_key: "diet_id"
+  belongs_to :user
 end
