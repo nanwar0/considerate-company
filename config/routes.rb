@@ -1,4 +1,24 @@
 Rails.application.routes.draw do
+  # Routes for the New diet request resource:
+
+  # CREATE
+  post("/insert_new_diet_request", { :controller => "new_diet_requests", :action => "create" })
+          
+  # READ
+  get("/new_diet_requests", { :controller => "new_diet_requests", :action => "index" })
+  
+  get("/new_diet_requests/:path_id", { :controller => "new_diet_requests", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_new_diet_request/:path_id", { :controller => "new_diet_requests", :action => "update" })
+  
+  # DELETE
+  get("/delete_new_diet_request_admin/:path_id", { :controller => "new_diet_requests", :action => "destroy_admin" })
+  get("/delete_new_diet_request/:path_id", { :controller => "new_diet_requests", :action => "destroy" })
+
+  #------------------------------
+
   get("/", { :controller => "home", :action => "index" })
   post("/get_recommendations", { :controller => "groups", :action => "recommend" })
   

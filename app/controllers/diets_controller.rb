@@ -1,10 +1,18 @@
 class DietsController < ApplicationController
   def index
-    matching_diets = Diet.all
 
-    @list_of_diets = matching_diets.order({ :created_at => :desc })
+    if !current_user.admin
+      redirect_to("/")
+    else
 
-    render({ :template => "diets/index" })
+      matching_diets = Diet.all
+
+      @list_of_diets = matching_diets.order({ :created_at => :desc })
+
+      @pending_diets = NewDietRequest.all.order({ :created_at => :desc })
+
+      render({ :template => "diets/index" })
+    end
   end
 
   def show

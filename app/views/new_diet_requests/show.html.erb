@@ -1,0 +1,71 @@
+<div>
+  <div>
+    <h1>
+      New diet request #<%= @the_new_diet_request.id %> details
+    </h1>
+
+    <div>
+      <div>
+        <a href="/new_diet_requests">
+          Go back
+        </a>
+      </div>
+
+      <div>
+        <a href="/delete_new_diet_request/<%= @the_new_diet_request.id %>">
+          Delete new diet request
+        </a>
+      </div>
+    </div>
+
+    <dl>
+      <dt>
+        Name
+      </dt>
+      <dd>
+        <%= @the_new_diet_request.name %>
+      </dd>
+
+      <dt>
+        Created at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_new_diet_request.created_at) %> ago
+      </dd>
+
+      <dt>
+        Updated at
+      </dt>
+      <dd>
+        <%= time_ago_in_words(@the_new_diet_request.updated_at) %> ago
+      </dd>
+    </dl>
+  </div>
+</div>
+
+<hr>
+
+
+<div>
+  <div>
+    <h2>
+      Edit new diet request
+    </h2>
+
+    <form action="/modify_new_diet_request/<%= @the_new_diet_request.id %>"  method="post" >
+      <div>
+        <label for="name_box">
+          Name
+        </label>
+
+        <input type="text" id="name_box" name="query_name" value="<%= @the_new_diet_request.name %>">
+      </div>
+
+      <button>
+        Update new diet request
+      </button>
+    </form>
+  </div>
+</div>
+
+<hr>
