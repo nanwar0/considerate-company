@@ -108,7 +108,7 @@
           Birthday
         </label>
 
-        <input type="date" id="birthday_box" name="query_birthday" value="<%= @the_friend.birthday %>">
+        <input type="date" id="birthday_box" name="query_birthday" value="<%= @the_friend.birthday.strftime("%B %d, %Y") %>">
       </div>
 
       <div>
