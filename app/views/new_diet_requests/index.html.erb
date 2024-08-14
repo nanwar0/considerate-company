@@ -14,28 +14,31 @@
       Add a new new diet request
     </h2>
 
-    <form action="/insert_new_diet_request" method="post">
+    <form action="/insert_new_diet_request" method="post" style="width:20%">
       <div>
         <label for="name_box">
-          Name
+          <b>Name</b>
         </label>
 
-        <input type="text" id="name_box" name="query_name">
+        <input type="text" id="name_box" name="query_name" class="form-control">
       </div>
-
-      <button>
+      <button class="btn btn-warning">
         Create new diet request
       </button>
     </form>
   </div>
 </div>
 
+<div>
 <p>An admin will approve your request and add it to the list! </p>
+</div>
+
+<hr> 
 
 <h3>Your open requests:</h3>
 <div>
   <div>
-    <table border="1">
+    <table border="1" class="table table-hover">
       <tr>
         <th>
           ID
