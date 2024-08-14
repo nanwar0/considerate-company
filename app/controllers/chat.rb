@@ -2,10 +2,10 @@ require "openai"
 
 pp "howdy"
 
-client = OpenAI::Client.new(:api_key => ENV.fetch("OPENAI_API_KEY"))
+client = OpenAI::Client.new(access_token: ENV.fetch("OPENAI_API_KEY"))
 
 response = client.completions.create(
-   model: "gpt-3.5-turbo-instruct", 
+   model: "gpt-3.5-turbo", 
    messages: [
      {:role => "system", :content => "You are a helpful assistant."},
      {:role => "user", :content => "Recommend four restaurants in Chicago."},
