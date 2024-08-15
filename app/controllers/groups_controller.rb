@@ -18,6 +18,14 @@ class GroupsController < ApplicationController
           end
         end
       end
+
+      $restriction_names = Array.new
+
+      $list_of_diets.each do |diet_id|
+        diet = Diet.where({ :id => diet_id }).first
+        $restriction_names.push(diet.name)
+      end
+
       render({ :template => "groups/index" })
     end
     
@@ -26,7 +34,8 @@ class GroupsController < ApplicationController
 
   def recommend
 
-    pp "howdy"
+    location = params.fetch("query_location")
+
 
     client = OpenAI::Client.new(:access_token => ENV.fetch("OPENAI_API_KEY"))
 
@@ -35,7 +44,7 @@ class GroupsController < ApplicationController
       model: "gpt-3.5-turbo", 
       messages: [
         {:role => "system", :content => "You are a helpful assistant."},
-        {:role => "user", :content => "Recommend four restaurants in Chicago."},
+        {:role => "user", :content => "Recommend four restaurants in #{location} that can accomodate the following dietary restrictions: #{$restriction_names}."},
       ]
     }
     )

@@ -92,9 +92,8 @@
 <h4>Combined dietary restrictions for the group: </h4>
 <ul>
 
-<%$list_of_diets.each do |diet_id|%>
-<%diet = Diet.where({ :id => diet_id }).first%>
-<li><%=diet.name%></li>
+<%$restriction_names.each do |restriction|%>
+<li><%=restriction%></li>
 <%end%>
 </ul>
 
