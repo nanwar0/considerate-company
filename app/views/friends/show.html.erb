@@ -97,7 +97,9 @@
         Birthday
       </dt>
       <dd>
+        <%if @the_friend.birthday != nil%>
         <%= @the_friend.birthday.strftime("%B %d, %Y") %>
+        <%end%>
       </dd>
 
 

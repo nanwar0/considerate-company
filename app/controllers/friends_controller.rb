@@ -43,6 +43,7 @@ class FriendsController < ApplicationController
       redirect_to("/friends", { :alert => the_friend.errors.full_messages.to_sentence })
     end
 
+ 
     input_restrictions = params.fetch("query_restrictions")
 
     input_restrictions.each do |restriction|
@@ -53,6 +54,7 @@ class FriendsController < ApplicationController
       if the_restriction.valid?
         the_restriction.save
       end
+
   end
 
   end
