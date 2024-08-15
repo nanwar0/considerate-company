@@ -9,12 +9,12 @@ class GroupsController < ApplicationController
 
       @list_of_groups = matching_groups.order({ :created_at => :desc })
 
-      @list_of_diets = Array.new
+      $list_of_diets = Array.new
 
       matching_groups.each do |group|
         group.friend.restrictions.each do |restriction|
-          if !@list_of_diets.include?(restriction.diet_id) && restriction.diet_id!=12
-            @list_of_diets.push(restriction.diet_id)
+          if !$list_of_diets.include?(restriction.diet_id) && restriction.diet_id!=12
+            $list_of_diets.push(restriction.diet_id)
           end
         end
       end
@@ -61,6 +61,8 @@ class GroupsController < ApplicationController
     existing_group.each do |group|
       group.destroy
     end
+
+    $next_message = ""
     
     list_of_friends = params.fetch("query_friend_id")
 
