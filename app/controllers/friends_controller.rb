@@ -69,9 +69,6 @@ class FriendsController < ApplicationController
 
     if the_friend.valid?
       the_friend.save
-      redirect_to("/friends/#{the_friend.id}", { :notice => "Friend updated successfully."} )
-    else
-      redirect_to("/friends/#{the_friend.id}", { :alert => the_friend.errors.full_messages.to_sentence })
     end
 
     the_friend.restrictions.each do |restriction|
@@ -84,13 +81,13 @@ class FriendsController < ApplicationController
     input_restrictions.each do |restriction|
       the_restriction = Restriction.new
       the_restriction.friend_id = the_friend.id
-      the_restriction.diet_id = restriction
+      the_restriction.diet_id = restriction.to_i
 
       if the_restriction.valid?
         the_restriction.save
       end
     end
-
+    redirect_to("/friends/#{the_friend.id}", { :notice => "Friend updated successfully."} )
   end
 
   def destroy

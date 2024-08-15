@@ -10,6 +10,5 @@
 #
 class Restriction < ApplicationRecord
   belongs_to :friend, class_name: "Friend", foreign_key: "friend_id"
-  belongs_to :diet, required: true, class_name: "Diet", foreign_key: "diet_id"
-  belongs_to :user
+  belongs_to :diet, class_name: "Diet", foreign_key: "diet_id"
 end
