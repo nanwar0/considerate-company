@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   #------------------------------
 
   get("/", { :controller => "home", :action => "index" })
-  post("/get_recommendations", { :controller => "groups", :action => "recommend" })
+  get("/get_recommendations", { :controller => "groups", :action => "recommend" })
   
   # Routes for the Group resource:
 

@@ -26,9 +26,11 @@ class GroupsController < ApplicationController
 
   def recommend
 
-    client = OpenAI::Client.new(:api_key => ENV.fetch("OPENAI_API_KEY"))
+    pp "howdy"
 
-    raw_response = client.completions.create(
+    client = OpenAI::Client.new(:access_token => ENV.fetch("OPENAI_API_KEY"))
+
+    raw_response = client.chat(
     parameters: {
       model: "gpt-3.5-turbo", 
       messages: [
@@ -37,7 +39,6 @@ class GroupsController < ApplicationController
       ]
     }
     )
-
     next_message = raw_response.fetch("choices").at(0).fetch("message").fetch("content")
     pp next_message
   end
