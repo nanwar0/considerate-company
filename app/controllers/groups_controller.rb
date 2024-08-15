@@ -39,8 +39,10 @@ class GroupsController < ApplicationController
       ]
     }
     )
-    next_message = raw_response.fetch("choices").at(0).fetch("message").fetch("content")
-    pp next_message
+    $next_message = raw_response.fetch("choices").at(0).fetch("message").fetch("content")
+    pp $next_message
+
+    redirect_to("/groups")
   end
 
   def show
