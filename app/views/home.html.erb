@@ -7,14 +7,27 @@
 
 <h4>What would you like to do?</h4>
 
-<ul>
-<li><a href="/groups">Plan a group meal</a></li>
-<li><a href="/friends">Add a friend or see your friends list</a></li>
-<%if current_user.admin%>
-<br> Admin-only access:
-  <li><a href="/diets">See and add pending dietary restrictions</a></li>
-<%end%>
-</ul>
+
+<div>
+  <div class="card border-primary mb-3" style="max-width: 20rem;"><a href="/groups" >
+    <div class="card-body">
+      <h4 class="card-title">Plan a group outing</h4>
+      <p class="card-text">Quickly view everyone's dietary restrictions and get recommendations for restaurants that can acommodate them.</p><a>
+    </div>
+  </div>
+</div>
+
+<div>
+  <div class="card border-primary mb-3" style="max-width: 20rem;"><a href="/friends">
+    <div class="card-body">
+      <h4 class="card-title">See your friends</h4>
+      <p class="card-text">Manage your friends list, including editing friends' details or adding a new friend.</p><a>
+    </div>
+  </div>
+</div>
+
+
+
 <hr>
 
 <h4>This month's birthdays:</h4>
