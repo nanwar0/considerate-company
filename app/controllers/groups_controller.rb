@@ -72,19 +72,20 @@ class GroupsController < ApplicationController
     end
 
     $next_message = ""
-    
-    list_of_friends = params.fetch("query_friend_id")
+    if params["query_friend_id"].present?
+      list_of_friends = params.fetch("query_friend_id")
 
-    list_of_friends.each do |friend|
-      the_group = Group.new
-      the_group.friend_id = friend
-      the_group.user_id = current_user.id
+      list_of_friends.each do |friend|
+        the_group = Group.new
+        the_group.friend_id = friend
+        the_group.user_id = current_user.id
 
-      if the_group.valid?
-        the_group.save
-      else
-        redirect_to("/groups", { :alert => the_group.errors.full_messages.to_sentence })
-      end
+        if the_group.valid?
+          the_group.save
+        else
+          redirect_to("/groups", { :alert => the_group.errors.full_messages.to_sentence })
+        end
+      end 
     end
     redirect_to("/groups")
   end

@@ -64,7 +64,9 @@
         </td>
 
         <td>
+          <%if a_group.friend.birthday != nil%>
           <%= a_group.friend.birthday.strftime("%B %d, %Y") %>
+          <%end%>
         </td>
 
         <td>
