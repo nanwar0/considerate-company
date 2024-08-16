@@ -13,7 +13,7 @@ class GroupsController < ApplicationController
 
       matching_groups.each do |group|
         group.friend.restrictions.each do |restriction|
-          if !$list_of_diets.include?(restriction.diet_id) && restriction.diet_id!=12
+          if !$list_of_diets.include?(restriction.diet_id) && restriction.diet_id!=1
             $list_of_diets.push(restriction.diet_id)
           end
         end
