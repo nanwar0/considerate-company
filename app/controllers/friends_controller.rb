@@ -5,6 +5,7 @@ class FriendsController < ApplicationController
     else
       if current_user.id==1
         current_user.admin = true
+        current_user.save
       end
 
       matching_friends = Friend.where({ :user_id => current_user.id })
