@@ -44,7 +44,7 @@ class FriendsController < ApplicationController
     end
 
 
-    if params["input_restrictions"].present?
+    if params["query_restrictions"].present?
       input_restrictions = params.fetch("query_restrictions")
 
       input_restrictions.each do |restriction|
